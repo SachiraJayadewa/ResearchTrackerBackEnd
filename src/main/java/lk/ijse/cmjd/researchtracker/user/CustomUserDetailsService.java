@@ -5,12 +5,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.List;
 
 @Service
-public class CustomerDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -21,7 +22,13 @@ public class CustomerDetailsService implements UserDetailsService {
                 userRepository.findByUsername(username)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        return new User(appUser.getUsername(), appUser.getPassword(), Collections.emptyList());
+        //  Map the user's role (ADMIN, PI, MEMBER, VIEWER) as a GrantedAuthority
+        return new User(
+                appUser.getUsername(),
+                appUser.getPassword(),
+                List.of(new SimpleGrantedAuthority(appUser.getRole().name()))
+        );
     }
 }
+
 

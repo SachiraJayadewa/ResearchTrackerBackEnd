@@ -1,10 +1,11 @@
 package lk.ijse.cmjd.researchtracker.user;
 
-import lk.ijse.cmjd.researchtracker.user.SignUpRequest;
-import lk.ijse.cmjd.researchtracker.user.UserService;
-import lk.ijse.cmjd.researchtracker.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -13,13 +14,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/signup")
-    public User signupUser(@RequestBody SignUpRequest request) {
-        return userService.saveUser(
-                request.getUsername(),
-                request.getPassword(),
-                request.getEmail(),
-                request.getRole()
-        );
+    //  ADMIN only: get all users
+    @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    //  Any logged-in user can view their own profile (by ID)
+    @GetMapping("/{id}")
+    public Optional<User> getUserById(@PathVariable String id) {
+        return userService.getUserById(id);
+    }
+
+    //  ADMIN only: delete a user
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+        return "User deleted successfully!";
     }
 }
