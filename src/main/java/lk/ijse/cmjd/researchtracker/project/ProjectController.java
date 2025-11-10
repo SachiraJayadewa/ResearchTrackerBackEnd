@@ -21,21 +21,21 @@ public class ProjectController {
         return projectService.createProject(project);
     }
 
-    // ✅ ADMIN or MEMBER: view all
+    // ✅ ADMIN or MEMBER: get all projects
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
     public List<Project> getAllProjects() {
         return projectService.getAllProjects();
     }
 
-    // ✅ ADMIN or MEMBER: view by id
+    // ✅ ADMIN or MEMBER: get project by ID
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
     public Optional<Project> getProjectById(@PathVariable String id) {
         return projectService.getProjectById(id);
     }
 
-    // ✅ ADMIN only: delete
+    // ✅ ADMIN only: delete project
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteProject(@PathVariable String id) {
@@ -48,5 +48,19 @@ public class ProjectController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public Project assignMembers(@PathVariable String id, @RequestBody List<String> userIds) {
         return projectService.assignMembers(id, userIds);
+    }
+
+    // ✅ ADMIN only: assign/change Principal Investigator
+    @PostMapping("/{id}/assign-pi/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Project assignPI(@PathVariable String id, @PathVariable String userId) {
+        return projectService.assignPrincipalInvestigator(id, userId);
+    }
+
+    // ✅ ADMIN only: update project status
+    @PutMapping("/{id}/status")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Project updateStatus(@PathVariable String id, @RequestParam Status status) {
+        return projectService.updateStatus(id, status);
     }
 }
