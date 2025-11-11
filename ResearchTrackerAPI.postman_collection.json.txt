@@ -13,10 +13,7 @@
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
@@ -37,10 +34,7 @@
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
@@ -66,10 +60,7 @@
           "request": {
             "method": "GET",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
               "raw": "http://localhost:8080/api/users",
@@ -86,10 +77,7 @@
           "request": {
             "method": "GET",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
               "raw": "http://localhost:8080/api/users/{{userId}}",
@@ -106,10 +94,7 @@
           "request": {
             "method": "DELETE",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
+              { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
               "raw": "http://localhost:8080/api/users/{{userId}}",
@@ -122,279 +107,360 @@
           "response": []
         }
       ]
-    },{
-  "name": "Projects",
-  "item": [
+    },
     {
-      "name": "Create Project (Admin Only)",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" },
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"title\": \"AI Research Project\",\n  \"summary\": \"Deep learning models for image recognition\",\n  \"status\": \"PLANNING\",\n  \"pi\": { \"id\": \"{{userId}}\" },\n  \"tags\": \"AI, Environment\",\n  \"startDate\": \"2025-11-10\",\n  \"endDate\": \"2026-03-01\"\n}"
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Create Project (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"AI Research Project\",\n  \"summary\": \"Deep learning models for image recognition\",\n  \"status\": \"PLANNING\",\n  \"pi\": { \"id\": \"{{userId}}\" },\n  \"tags\": \"AI, Environment\",\n  \"startDate\": \"2025-11-10\",\n  \"endDate\": \"2026-03-01\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "projects"]
+            }
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/api/projects",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "projects"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get All Projects",
-      "request": {
-        "method": "GET",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/projects",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "projects"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get Project by ID",
-      "request": {
-        "method": "GET",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/projects/{{projectId}}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "projects", "{{projectId}}"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Delete Project (Admin Only)",
-      "request": {
-        "method": "DELETE",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/projects/{{projectId}}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "projects", "{{projectId}}"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Assign Members to Project (Admin Only)",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" },
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "[\"{{userId1}}\", \"{{userId2}}\"]"
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "projects"]
+            }
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/api/projects/{{projectId}}/assign",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "projects", "{{projectId}}", "assign"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Assign Principal Investigator (Admin Only)",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/projects/{{projectId}}/assign-pi/{{userId}}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "projects", "{{projectId}}", "assign-pi", "{{userId}}"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Update Project Status (Admin Only)",
-      "request": {
-        "method": "PUT",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/projects/{{projectId}}/status?status=ACTIVE",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "projects", "{{projectId}}", "status"],
-          "query": [
-            { "key": "status", "value": "ACTIVE" }
-          ]
-        }
-      },
-      "response": []
-    }
-  ]
-}
-
-    ,
-    {
-  "name": "Milestones",
-  "item": [
-    {
-      "name": "Create Milestone (Admin or PI)",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" },
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"title\": \"Data Collection Phase\",\n  \"description\": \"Complete initial data gathering from sensors\",\n  \"dueDate\": \"2025-12-15\"\n}"
+        {
+          "name": "Get Project by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/projects/{{projectId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "projects", "{{projectId}}"]
+            }
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/api/milestones/{{projectId}}/create/{{userId}}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "milestones", "{{projectId}}", "create", "{{userId}}"]
+        {
+          "name": "Delete Project (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/projects/{{projectId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "projects", "{{projectId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assign Members to Project (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": { "mode": "raw", "raw": "[\"{{userId1}}\", \"{{userId2}}\"]" },
+            "url": {
+              "raw": "http://localhost:8080/api/projects/{{projectId}}/assign",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "projects", "{{projectId}}", "assign"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assign Principal Investigator (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/projects/{{projectId}}/assign-pi/{{userId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "projects", "{{projectId}}", "assign-pi", "{{userId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project Status (Admin Only)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/projects/{{projectId}}/status?status=ACTIVE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "projects", "{{projectId}}", "status"],
+              "query": [{ "key": "status", "value": "ACTIVE" }]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     },
     {
-      "name": "Get All Milestones",
-      "request": {
-        "method": "GET",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/milestones",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "milestones"]
+      "name": "Milestones",
+      "item": [
+        {
+          "name": "Create Milestone (Admin or PI)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Data Collection Phase\",\n  \"description\": \"Complete initial data gathering from sensors\",\n  \"dueDate\": \"2025-12-15\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/milestones/{{projectId}}/create/{{userId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "milestones", "{{projectId}}", "create", "{{userId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Milestones",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/milestones",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "milestones"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Milestones by Project",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/milestones/project/{{projectId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "milestones", "project", "{{projectId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Milestone by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/milestones/{{milestoneId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "milestones", "{{milestoneId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Milestone as Completed (Admin or PI)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/milestones/{{milestoneId}}/complete",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "milestones", "{{milestoneId}}", "complete"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Milestone (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/milestones/{{milestoneId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "milestones", "{{milestoneId}}"]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     },
-    {
-      "name": "Get Milestones by Project",
-      "request": {
-        "method": "GET",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/milestones/project/{{projectId}}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "milestones", "project", "{{projectId}}"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get Milestone by ID",
-      "request": {
-        "method": "GET",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/milestones/{{milestoneId}}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "milestones", "{{milestoneId}}"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Mark Milestone as Completed (Admin or PI)",
-      "request": {
-        "method": "PUT",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/milestones/{{milestoneId}}/complete",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "milestones", "{{milestoneId}}", "complete"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Delete Milestone (Admin Only)",
-      "request": {
-        "method": "DELETE",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
-        "url": {
-          "raw": "http://localhost:8080/api/milestones/{{milestoneId}}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "milestones", "{{milestoneId}}"]
-        }
-      },
-      "response": []
-    }
-  ]
-}
-,
     {
       "name": "Documents",
-      "item": []
+      "item": [
+        {
+          "name": "Upload Document (Admin or PI)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Research Proposal\",\n  \"description\": \"Main project proposal PDF uploaded for review\",\n  \"urlOrPath\": \"/uploads/proposal.pdf\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/documents/{{projectId}}/upload/{{userId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "documents", "{{projectId}}", "upload", "{{userId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Documents",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/documents",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "documents"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Documents by Project",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/documents/project/{{projectId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "documents", "project", "{{projectId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Document by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/documents/{{documentId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "documents", "{{documentId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Document (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/documents/{{documentId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "documents", "{{documentId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "event": [
-    {
-      "listen": "prerequest",
-      "script": { "exec": [], "type": "text/javascript" }
-    },
-    {
-      "listen": "test",
-      "script": { "exec": [], "type": "text/javascript" }
-    }
+    { "listen": "prerequest", "script": { "exec": [], "type": "text/javascript" } },
+    { "listen": "test", "script": { "exec": [], "type": "text/javascript" } }
   ],
   "variable": [
     { "key": "token", "value": "" },
     { "key": "userId", "value": "" },
     { "key": "userId1", "value": "" },
     { "key": "userId2", "value": "" },
-    { "key": "projectId", "value": "" }
+    { "key": "projectId", "value": "" },
+    { "key": "milestoneId", "value": "" },
+    { "key": "documentId", "value": "" }
   ]
 }
+
 
