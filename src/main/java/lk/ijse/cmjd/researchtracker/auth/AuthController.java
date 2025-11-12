@@ -29,7 +29,7 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authManager;
 
-    //  Anyone can register
+    // ✅ Register as MEMBER by default
     @PostMapping("/signup")
     public String register(@RequestBody User user) {
         user.setId(UUID.randomUUID().toString());
@@ -40,7 +40,7 @@ public class AuthController {
         return "User registered successfully!";
     }
 
-    //  Login: authenticate + return JWT token or proper error message
+    // ✅ Login now returns JWT with role included
     @PostMapping("/login")
     public Object login(@RequestBody User request) {
         try {
@@ -48,8 +48,9 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
             );
 
-            // Only if credentials are correct — generate JWT
-            return jwtUtil.generateToken(request.getUsername());
+            User user = userRepo.findByUsername(request.getUsername()).orElseThrow();
+            // Include role in token
+            return jwtUtil.generateToken(user.getUsername(), user.getRole().name());
 
         } catch (BadCredentialsException e) {
             return "Invalid username or password!";
@@ -58,4 +59,3 @@ public class AuthController {
         }
     }
 }
-
