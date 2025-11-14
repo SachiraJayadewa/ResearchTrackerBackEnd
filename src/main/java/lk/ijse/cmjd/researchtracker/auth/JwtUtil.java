@@ -27,21 +27,25 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
+    // Extract claims
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        return (String) extractAllClaims(token).get("username");
     }
 
     public String extractRole(String token) {
-        return extractAllClaims(token).get("role", String.class);
+        return (String) extractAllClaims(token).get("role");
+    }
+
+    public String extractUserId(String token) {
+        return (String) extractAllClaims(token).get("userId");
     }
 
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+    public <T> T extractClaim(String token, Function<Claims, T> resolver) {
+        return resolver.apply(extractAllClaims(token));
     }
 
     private Claims extractAllClaims(String token) {
@@ -56,25 +60,24 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    // ✅ Now supports role in JWT payload
-    public String generateToken(String username, String role) {
+    // Create token with userId + username + role
+    public String generateToken(String userId, String username, String role) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
+        claims.put("username", username);
         claims.put("role", role);
-        return createToken(claims, username);
-    }
 
-    private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setSubject(username)
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
+        String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
